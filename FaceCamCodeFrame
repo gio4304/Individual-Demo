@@ -1,0 +1,65 @@
+const tf = require('@tensorflow/tfjs-node');
+const cv = require('opencv4nodejs');
+const SerialPort = require('serialport');
+const Readline = require('@serialport/parser-readline');
+
+const labels = ['Happy', 'Sad', 'Angry', 'Scared', 'Neutral'];
+
+// Load TF.js model
+const loadModel = async () => {
+  return await tf.loadGraphModel('file://model/model.json');
+};
+
+// Open serial port
+const openSerialPort = (portName) => {
+  const port = new SerialPort(portName, { baudRate: 9600 });
+  const parser = port.pipe(new Readline({ delimiter: '\n' }));
+  return { port, parser };
+};
+
+// Send message to Arduino
+const sendToArduino = (port, message) => {
+  port.write(message + '\n');
+};
+
+// Convert OpenCV Mat to Tensor
+const matToTensor = (mat) => {
+  // Convert Mat to a standard JS array
+  const img = mat.getData();
+  const tensor = tf.tensor3d(img, [mat.rows, mat.cols, mat.channels()]);
+  // Normalize to [0,1]
+  return tensor.div(255.0).expandDims(0); // shape [1,224,224,3]
+};
+
+// Main loop
+(async () => {
+  const model = await loadModel();
+  const { port } = openSerialPort('COM3'); // Adjust for your OS
+
+  const cap = new cv.VideoCapture(0);
+  cap.set(cv.CAP_PROP_FRAME_WIDTH, 224);
+  cap.set(cv.CAP_PROP_FRAME_HEIGHT, 224);
+
+  while (true) {
+    let frame = cap.read();
+
+    // If webcam returns empty frame, skip
+    if (frame.empty) {
+      cap.reset();
+      continue;
+    }
+
+    frame = frame.resize(224, 224);
+    const inputTensor = matToTensor(frame);
+
+    const output = model.predict(inputTensor);
+    const scores = await output.data(); // async
+    const maxIdx = scores.indexOf(Math.max(...scores));
+    const expression = labels[maxIdx];
+
+    console.log('Detected:', expression);
+    sendToArduino(port, expression);
+
+    await new Promise(resolve => setTimeout(resolve, 100)); // ~10 FPS
+  }
+})();
