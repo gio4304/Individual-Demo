@@ -1,1 +1,69 @@
+#include <LiquidCrystal.h>
 
+// Pin mapping for LCD (adjust to your wiring)
+const int rs = 7, en = 8, d4 = 9, d5 = 10, d6 = 11, d7 = 12;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+String inputString = "";   // buffer for serial input
+bool stringComplete = false;
+
+void setup() {
+  // Initialize LCD with 16 columns and 2 rows (adjust if yours is 20x4)
+  lcd.begin(16, 2);
+  lcd.clear();
+  lcd.print("Waiting...");
+
+  // Start serial communication
+  Serial.begin(9600);
+  inputString.reserve(50); // reserve space for incoming messages
+}
+
+void loop() {
+  // Check if a full string has been received
+  if (stringComplete) {
+    lcd.clear();
+
+    // Decide what to show based on the received string
+    if (inputString == "Happy") {
+      lcd.print("Expression: Happy");
+    } else if (inputString == "Sad") {
+      lcd.print("Expression: Sad");
+    } else if (inputString == "Angry") {
+      lcd.print("Expression: Angry");
+    } else if (inputString == "Scared") {
+      lcd.print("Expression: Scared");
+    } else if (inputString == "Neutral") {
+      lcd.print("Expression: Neutral");
+    } else if (inputString == "Not a person") {
+      lcd.print("No person detected");
+    } else if (inputString == "Andrew") {
+      lcd.print("Detected: Andrew");
+    } else if (inputString == "Gio") {
+      lcd.print("Detected: Gio");
+    } else if (inputString == "Dragan") {
+      lcd.print("Detected: Dragan");
+    } else if (inputString == "Isaac") {
+      lcd.print("Detected: Isaac");
+    } else if (inputString == "Drake") {
+      lcd.print("Detected: Drake");
+    } else {
+      lcd.print("Unknown input");
+    }
+
+    // Reset buffer
+    inputString = "";
+    stringComplete = false;
+  }
+}
+
+// SerialEvent runs automatically when new data arrives
+void serialEvent() {
+  while (Serial.available()) {
+    char inChar = (char)Serial.read();
+    if (inChar == '\n') {
+      stringComplete = true;
+    } else {
+      inputString += inChar;
+    }
+  }
+}
