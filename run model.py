@@ -5,11 +5,16 @@ import serial
 import time
 
 # Load model exported from Teachable Machine
-model = tf.keras.models.load_model(r"C:\Users\ababb\OneDrive\Documents\School Project\v1\keras_model.h5")
+model = tf.keras.models.load_model(
+    r"C:\Users\ababb\OneDrive\Documents\School Project\v1\keras_model.h5",
+    compile=False
+)
 
-# Open labels file
+# Open labels file and clean up entries
 with open(r"C:\Users\ababb\OneDrive\Documents\School Project\v1\labels.txt", "r") as f:
-    labels = f.read().splitlines()
+    raw_labels = f.read().splitlines()
+    # Remove index numbers (e.g. "0 Happy" → "Happy")
+    labels = [line.split(' ', 1)[-1].strip() for line in raw_labels]
 
 # Serial port for Arduino Mega 2560
 arduino = serial.Serial('COM3', 9600)
@@ -34,13 +39,13 @@ while True:
 
     print("Detected:", label)
 
-    # Send to Mega 2560
-    arduino.write((label + "\n").encode())
+    # Send to Mega 2560 (with newline)
+    arduino.write((label + "\n").encode('utf-8'))
 
     # Show webcam feed
     cv2.imshow("Face Recognition", frame)
 
-    if cv2.waitKey(1) == 27:
+    if cv2.waitKey(1) == 27:  # ESC to quit
         break
 
 cap.release()
