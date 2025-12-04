@@ -24,16 +24,16 @@ void loop() {
     lcd.clear();
 
     // Decide what to show based on the received string
-    if (inputString == "Happy") {
-      lcd.print("Expression: Happy");
-    } else if (inputString == "Sad") {
-      lcd.print("Expression: Sad");
-    } else if (inputString == "Angry") {
-      lcd.print("Expression: Angry");
-    } else if (inputString == "Scared") {
-      lcd.print("Expression: Scared");
-    } else if (inputString == "Neutral") {
-      lcd.print("Expression: Neutral");
+    if (inputString == "Happy Person") {
+      lcd.print("Expressed: Happy");
+    } else if (inputString == "Sad Person") {
+      lcd.print("Expressed: Sad");
+    } else if (inputString == "Angry Person") {
+      lcd.print("Expressed: Angry");
+    } else if (inputString == "Scared Person") {
+      lcd.print("Expressed: Scared");
+    } else if (inputString == "Neutral Person") {
+      lcd.print("Expressed: Neutral");
     } else if (inputString == "Not a person") {
       lcd.print("No person detected");
     } else if (inputString == "Andrew") {
