@@ -13,3 +13,12 @@ In this project we are using Google's Teachable Machine to train an AI model to 
 | USB Cable                 | USB-A to USB-B           | Connects Mega 2560 to computer  |
 | Breadboard                | 830 tie-points           | Circuit prototyping platform    |
 | Jumper Wires (14)         | Male-to-male             | For wiring connections          |
+
+
+# Software Requirements
+| Software / Tool          | Version                 | Purpose / Description                               |
+|--------------------------|-------------------------|------------------------------------------------------|
+| Python                   | 3.11                    | Used for data processing, scripts, and integration   |
+| Arduino IDE              | Latest Version          | Uploads code and manages the Mega 2560 board         |
+| Google Teachable Machine | Latest Version          | Trains the facial-emotion recognition AI model       |
+| Visual Studio            | Latest Version          | Development environment for coding and debugging     |
