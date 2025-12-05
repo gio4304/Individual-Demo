@@ -22,3 +22,6 @@ In this project we are using Google's Teachable Machine to train an AI model to 
 | Arduino IDE              | Latest Version          | Uploads code and manages the Mega 2560 board         |
 | Google Teachable Machine | Latest Version          | Trains the facial-emotion recognition AI model       |
 | Visual Studio            | Latest Version          | Development environment for coding and debugging     |
+
+
+# Hidden / Easily Overlooked Details
