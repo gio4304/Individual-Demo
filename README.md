@@ -25,3 +25,7 @@ In this project we are using Google's Teachable Machine to train an AI model to 
 
 
 # Hidden / Easily Overlooked Details
+-Pip installation 
+-Camera angles and lighting was very important for the Teachable Machine to recognize facial emotions
+-Loose wiring on the Arduino board could cause a malfunction
+-Serial communication from Arduino and Python could cause an overflow in the serial buffer
