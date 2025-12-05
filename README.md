@@ -34,3 +34,20 @@ In this project we are using Google's Teachable Machine to train an AI model to 
 4.Serial communication from Arduino and Python could cause an overflow in the serial buffer
 
 5.USB port not supplying enough power 
+
+# Diagram
+1.Goggle Teachable
+
+2.Arduino Mega 2560
+
+3.Python script
+
+4.LED indicator screen
+
+5.Webcam
+
+# Demo Video
+
+
+# Licensce
+MIT License
