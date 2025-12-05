@@ -47,7 +47,7 @@ In this project we are using Google's Teachable Machine to train an AI model to 
 5.Webcam
 
 # Demo Video
-
+https://www.youtube.com/watch?v=qDOz4qr73CM
 
 # Licensce
 MIT License
