@@ -1,0 +1,11 @@
+0 Happy Person
+1 Not a person
+2 Sad Person
+3 Angry Person
+4 Scared Person
+5 Neutral Person
+6 Drake
+7 Andrew
+8 Gio
+9 Isaac
+10 Dragan
